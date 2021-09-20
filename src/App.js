@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import './App.css';
+import ToDoFilterItem from './components/ToDoFilterItem/ToDoFilterItem';
 import ToDoForm from './components/ToDoForm/ToDoForm';
 import ToDoItem from './components/ToDoItem/ToDoItem';
 import ToDoTabs from './components/ToDoTabs/ToDoTabs';
 
 function App() {
   const [toDoList, setToDoList] = useState([]);
-  const [isChecked, setisChecked] = useState([]);
-  const [activeTabs, setActiveTabs] = useState('');
+  const [activeTab, setActiveTab] = useState('');
+  const [queryItem, setQueryItems] = useState('');
 
-  const handleCheck = (id) => () => {
-    const alreadyHave = isChecked.includes(id);
-    if (alreadyHave) {
-      setisChecked(isChecked.filter((item) => item !== id));
-    } else {
-      setisChecked([...isChecked, id]);
-    }
+  const handleCheck = (id) => {
+    setToDoList(
+      toDoList.map((item) =>
+        item.id === id ? { ...item, complete: !item.complete } : { ...item }
+      )
+    );
   };
 
   const addTask = (userInput) => {
@@ -23,7 +23,7 @@ function App() {
       const newItem = {
         id: Math.random().toString(30).substr(2, 9),
         task: userInput,
-        type: '',
+        complete: false,
       };
       setToDoList([...toDoList, newItem]);
     }
@@ -34,13 +34,7 @@ function App() {
   };
 
   const deleteDoneTask = () => {
-    let result = [...toDoList];
-    while (isChecked.length !== 0) {
-      result = result.filter((item) => item.id !== isChecked[0]);
-      isChecked.shift();
-    }
-
-    setToDoList(result);
+    setToDoList(toDoList.filter((item) => !item.complete));
   };
 
   const handleEditeList = (editValue, id) => {
@@ -53,23 +47,27 @@ function App() {
     setToDoList(newList);
   };
 
-  const changeTabs = () => {
-    for (let i = 0; i < toDoList.length; i++) {
-      for (let j = 0; j < isChecked.length; i++) {
-        if (toDoList[i].id === isChecked[j]) {
-          toDoList[i].type = 'done';
-          setActiveTabs('done');
-        }
-        if (toDoList[i]) {
-          toDoList[i].type = 'active';
-          setActiveTabs('active');
-        }
-        if (toDoList[i] && toDoList[i].id === isChecked[j]) {
-          toDoList[i].type = 'all';
-          setActiveTabs('all');
-        }
-      }
+  const filterItems = () => {
+    let result = [...toDoList];
+
+    if (queryItem.length) {
+      result = result.filter((item) =>
+        item.task.toLowerCase().includes(queryItem.toLowerCase())
+      );
     }
+    if (activeTab) {
+      result = result.filter((item) => {
+        if (activeTab === 'active') {
+          return !item.complete;
+        } else if (activeTab === 'done') {
+          return item.complete;
+        } else {
+          return item;
+        }
+      });
+    }
+
+    return result;
   };
 
   return (
@@ -78,15 +76,15 @@ function App() {
         <h1> ToDo List</h1>
       </header>
       <ToDoForm addTask={addTask} />
-      <ToDoTabs changeTabs={changeTabs} />
+      <ToDoFilterItem setQueryItems={setQueryItems} />
+      <ToDoTabs changeTab={setActiveTab} />
       {[
-        toDoList.map((item) => (
+        filterItems().map((item) => (
           <ToDoItem
             key={item.id}
             item={item}
             removeTask={removeTask}
             handleCheck={handleCheck}
-            isChecked={isChecked.includes(item.id)}
             handleEditeList={handleEditeList}
           />
         )),

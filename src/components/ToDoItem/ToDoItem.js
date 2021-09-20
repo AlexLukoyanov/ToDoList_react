@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import './ToDoItem.css';
 
-const ToDoItem = ({
-  item,
-  removeTask,
-  handleCheck,
-  isChecked,
-  handleEditeList,
-}) => {
+const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
   const [onEdit, setOnEdit] = useState(false);
   const [editValue, setEditValue] = useState(item.task);
 
@@ -52,16 +46,17 @@ const ToDoItem = ({
           <input
             type="checkbox"
             id={item.id}
-            checked={isChecked}
-            onChange={handleCheck(item.id)}
+            checked={item.complete}
+            onChange={() => handleCheck(item.id)}
           />
-          <label htmlFor={item.id} className={isChecked ? 'lineThrough' : null}>
+          <label
+            htmlFor={item.id}
+            className={item.complete ? 'lineThrough' : null}
+          >
             {item.task}
           </label>
           <button onClick={deleteTask}>X</button>
-          <button disabled={isChecked} onClick={handleOnEdit}>
-            Edit
-          </button>
+          <button onClick={handleOnEdit}>Edit</button>
         </div>
       </div>
     );
