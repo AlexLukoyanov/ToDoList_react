@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ToDoForm.css';
+import styles from './ToDoForm.module.css';
 
 const ToDoForm = ({ addTask }) => {
   const [userInput, setUserInput] = useState('');
@@ -21,14 +21,15 @@ const ToDoForm = ({ addTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.todo_form} onSubmit={handleSubmit}>
       <input
+        className={styles.todo_form_input}
         type="text"
         value={userInput}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <button>Add</button>
+      <button className={styles.todo_form_button}>Add</button>
     </form>
   );
 };
