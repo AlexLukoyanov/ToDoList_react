@@ -28,6 +28,7 @@ const ToDoForm = ({ addTask }) => {
         value={userInput}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        placeholder="Add new todo..."
       />
       <button className={styles.todo_form_button}>Add</button>
     </form>

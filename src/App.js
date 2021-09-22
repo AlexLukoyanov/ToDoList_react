@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
-import ToDoFilterItem from './components/ToDoFilterItem/ToDoFilterItem';
+import ToDoSearch from './components/ToDoSearch/ToDoSearch';
 import ToDoForm from './components/ToDoForm/ToDoForm';
 import ToDoItem from './components/ToDoItem/ToDoItem';
 import ToDoTabs from './components/ToDoTabs/ToDoTabs';
@@ -72,27 +72,25 @@ function App() {
 
   return (
     <div className={styles.wrapper}>
-      <div>
-        <header>
-          <h1 className={styles.title}> Todo List</h1>
-        </header>
+      <header>
+        <h1 className={styles.title}> Todo List</h1>
+      </header>
 
-        <ToDoForm addTask={addTask} />
-        <ToDoFilterItem setQueryItems={setQueryItems} />
-        <ToDoTabs changeTab={setActiveTab} />
-        {[
-          filterItems().map((item) => (
-            <ToDoItem
-              key={item.id}
-              item={item}
-              removeTask={removeTask}
-              handleCheck={handleCheck}
-              handleEditeList={handleEditeList}
-            />
-          )),
-        ]}
-        <button onClick={deleteDoneTask}>Clear Done Task</button>
-      </div>
+      <ToDoForm addTask={addTask} />
+      <ToDoSearch setQueryItems={setQueryItems} />
+      <ToDoTabs changeTab={setActiveTab} />
+      {[
+        filterItems().map((item) => (
+          <ToDoItem
+            key={item.id}
+            item={item}
+            removeTask={removeTask}
+            handleCheck={handleCheck}
+            handleEditeList={handleEditeList}
+          />
+        )),
+      ]}
+      <button onClick={deleteDoneTask}>Clear Done Task</button>
     </div>
   );
 }

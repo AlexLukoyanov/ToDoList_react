@@ -1,0 +1,30 @@
+.todo_search {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.todo_search i {
+  position: absolute;
+  left: 17px;
+  top: 10px;
+  color: #f5f768ab;
+  font-size: 20px;
+}
+
+.todo_search_input {
+  width: 96%;
+  font-size: 20px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  padding: 10px 10px 10px 40px;
+}
+
+.todo_search_input:focus {
+  border: 1px solid rgb(255, 254, 255);
+}
+
+.todo_search_input::placeholder {
+  padding-left: 30px;
+}

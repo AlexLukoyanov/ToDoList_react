@@ -1,14 +1,19 @@
 .todo_form {
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .todo_form_input {
   color: rgb(255, 255, 255);
-  width: 300px;
+  width: 80%;
   font-size: 20px;
   border: none;
   background: rgba(0, 0, 0, 0.3);
   padding: 10px;
+}
+
+.todo_form_input::placeholder {
+  color: #f5f768ab;
 }
 
 .todo_form_input:focus {
@@ -19,10 +24,10 @@
   font-size: 20px;
   padding: 10px;
   border: none;
-  background: #ffffff;
+  background: #edf050;
   cursor: pointer;
 }
 
 .todo_form_button:hover {
-  background-color: #ffffff9c;
+  background-color: #f5f768ab;
 }
