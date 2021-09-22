@@ -10,3 +10,7 @@
   font-size: 50px;
   margin-bottom: 30px;
 }
+
+.title span {
+  color: #edf050;
+}

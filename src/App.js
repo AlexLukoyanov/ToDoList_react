@@ -7,7 +7,7 @@ import ToDoTabs from './components/ToDoTabs/ToDoTabs';
 
 function App() {
   const [toDoList, setToDoList] = useState([]);
-  const [activeTab, setActiveTab] = useState('');
+  const [activeTab, setActiveTab] = useState('all');
   const [queryItem, setQueryItems] = useState('');
 
   const handleCheck = (id) => {
@@ -73,12 +73,14 @@ function App() {
   return (
     <div className={styles.wrapper}>
       <header>
-        <h1 className={styles.title}> Todo List</h1>
+        <h1 className={styles.title}>
+          Todo <span> List </span>
+        </h1>
       </header>
 
       <ToDoForm addTask={addTask} />
       <ToDoSearch setQueryItems={setQueryItems} />
-      <ToDoTabs changeTab={setActiveTab} />
+      <ToDoTabs activeTab={activeTab} changeTab={setActiveTab} />
       {[
         filterItems().map((item) => (
           <ToDoItem

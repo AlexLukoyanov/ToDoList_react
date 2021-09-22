@@ -6,14 +6,14 @@
 
 .todo_search i {
   position: absolute;
-  left: 17px;
+  left: 21px;
   top: 10px;
   color: #f5f768ab;
   font-size: 20px;
 }
 
 .todo_search_input {
-  width: 96%;
+  width: 94%;
   font-size: 20px;
   color: #ffffff;
   background: rgba(0, 0, 0, 0.3);
