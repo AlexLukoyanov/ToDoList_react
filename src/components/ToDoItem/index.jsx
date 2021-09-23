@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
-import styles from './ToDoItem.module.css';
+import styles from './index.module.css';
 
-const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
-  const [onEdit, setOnEdit] = useState(false);
+const TodoItem = ({ item, onRemoveTask, onCheck, onEditList }) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(item.task);
 
-  const handleOnEdit = () => {
-    setOnEdit(true);
+  const handleChangeEditMode = () => {
+    setIsEditing(true);
   };
 
-  const handleSave = (id) => {
-    setOnEdit(false);
+  const handleSave = (id) => () => {
+    setIsEditing(false);
     if (editValue) {
-      handleEditeList(editValue, id);
+      onEditList(editValue, id);
     } else {
       setEditValue(item.task);
     }
   };
 
-  const changeTask = (e) => {
+  const handleChangeTask = (e) => {
     setEditValue(e.target.value);
   };
 
-  const deleteTask = () => removeTask(item.id);
-
-  if (onEdit) {
+  if (isEditing) {
     return (
       <div>
         <div className={styles.todo_item_wrapper}>
@@ -33,19 +31,18 @@ const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
             className={styles.todo_item_edit}
             type="text"
             id="editValue"
-            task="editValue"
             value={editValue}
-            onChange={changeTask}
+            onChange={handleChangeTask}
           />
           <button
             className={'fas fa-save'}
-            onClick={() => handleSave(item.id)}
+            onClick={handleSave(item.id)}
             title="Save"
           />
         </div>
       </div>
     );
-  } else {
+  }
     return (
       <div className={styles.todo_item_wrapper}>
         <div className={styles.todo_item}>
@@ -54,7 +51,7 @@ const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
             type="checkbox"
             id={item.id}
             checked={item.complete}
-            onChange={() => handleCheck(item.id)}
+            onChange={onCheck(item.id)}
           />
           <label
             htmlFor={item.id}
@@ -66,17 +63,16 @@ const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
         <button
           disabled={item.complete}
           className={'fas fa-pencil-alt'}
-          onClick={handleOnEdit}
+          onClick={handleChangeEditMode}
           title="Edit"
         />
         <button
           className={'fas fa-trash'}
-          onClick={deleteTask}
+          onClick={onRemoveTask(item.id)}
           title="Delete"
         />
       </div>
     );
-  }
 };
 
-export default ToDoItem;
+export default TodoItem;

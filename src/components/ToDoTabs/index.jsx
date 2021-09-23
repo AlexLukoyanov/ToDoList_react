@@ -1,14 +1,16 @@
 import React from 'react';
-import styles from './ToDoTabs.module.css';
+import styles from './index.module.css';
 
-const ToDoTabs = ({ changeTab, activeTab }) => {
+const TodoTabs = ({ onChangeTab, activeTab }) => {
+  const handleChangeTab = (type) => () => onChangeTab(type);
+
   return (
     <div className={styles.todo_tabs}>
       <button
         className={
           activeTab === 'all' ? styles.todo_tab_active : styles.todo_tabs_item
         }
-        onClick={() => changeTab('all')}
+        onClick={handleChangeTab('all')}
       >
         All
       </button>
@@ -18,7 +20,7 @@ const ToDoTabs = ({ changeTab, activeTab }) => {
             ? styles.todo_tab_active
             : styles.todo_tabs_item
         }
-        onClick={() => changeTab('active')}
+        onClick={handleChangeTab('active')}
       >
         Active
       </button>
@@ -26,7 +28,7 @@ const ToDoTabs = ({ changeTab, activeTab }) => {
         className={
           activeTab === 'done' ? styles.todo_tab_active : styles.todo_tabs_item
         }
-        onClick={() => changeTab('done')}
+        onClick={handleChangeTab('done')}
       >
         Done
       </button>
@@ -34,4 +36,4 @@ const ToDoTabs = ({ changeTab, activeTab }) => {
   );
 };
 
-export default ToDoTabs;
+export default TodoTabs;

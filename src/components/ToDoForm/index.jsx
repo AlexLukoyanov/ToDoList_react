@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import styles from './ToDoForm.module.css';
+import styles from './index.module.css';
 
-const ToDoForm = ({ addTask }) => {
+const TodoForm = ({ onAddTask }) => {
   const [userInput, setUserInput] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTask(userInput);
+    onAddTask(userInput);
     setUserInput('');
   };
 
@@ -35,4 +35,4 @@ const ToDoForm = ({ addTask }) => {
   );
 };
 
-export default ToDoForm;
+export default TodoForm;

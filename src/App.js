@@ -1,74 +1,77 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
-import ToDoSearch from './components/ToDoSearch/ToDoSearch';
-import ToDoForm from './components/ToDoForm/ToDoForm';
-import ToDoItem from './components/ToDoItem/ToDoItem';
-import ToDoTabs from './components/ToDoTabs/ToDoTabs';
+import ToDoSearch from './components/TodoSearch';
+import TodoForm from './components/TodoForm';
+import TodoItem from './components/TodoItem';
+import TodoTabs from './components/TodoTabs';
+import { Empty } from "./components/Empty";
 
 function App() {
-  const [toDoList, setToDoList] = useState([]);
+  const [todos, setTodos] = useState([]);
   const [activeTab, setActiveTab] = useState('all');
-  const [queryItem, setQueryItems] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleCheck = (id) => {
-    setToDoList(
-      toDoList.map((item) =>
-        item.id === id ? { ...item, complete: !item.complete } : { ...item }
+  const handleCheck = (id) => () =>  {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, complete: !todo.complete } : todo
       )
     );
   };
 
-  const addTask = (userInput) => {
+  const handleAddTask = (userInput) => {
     if (userInput) {
-      const newItem = {
+      const newTodo = {
         id: Math.random().toString(30).substr(2, 9),
         task: userInput,
         complete: false,
       };
-      setToDoList([...toDoList, newItem]);
+      setTodos([...todos, newTodo]);
     }
   };
 
-  const removeTask = (id) => {
-    setToDoList(toDoList.filter((item) => item.id !== id));
+  const handleRemoveTask = (id) => () => {
+    setTodos(todos.filter((item) => item.id !== id));
   };
 
-  const deleteDoneTask = () => {
-    setToDoList(toDoList.filter((item) => !item.complete));
+  const handleDeleteDoneTasks = () => {
+    setTodos(todos.filter((todo) => !todo.complete));
   };
 
-  const handleEditeList = (editValue, id) => {
-    const newList = [...toDoList];
-    newList.forEach((item) => {
+  const handleEditTodo = (editValue, id) => {
+    const newTodos = [...todos];
+    newTodos.forEach((item) => {
       if (item.id === id) {
         item.task = editValue;
       }
     });
-    setToDoList(newList);
+    setTodos(newTodos);
   };
 
-  const filterItems = () => {
-    let result = [...toDoList];
+  const filteredItems = () => {
+    let result = [...todos];
 
-    if (queryItem.length) {
-      result = result.filter((item) =>
-        item.task.toLowerCase().includes(queryItem.toLowerCase())
+    if (searchQuery.length) {
+      result = result.filter((todo) =>
+        todo.task.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
     if (activeTab) {
-      result = result.filter((item) => {
+      result = result.filter((todo) => {
         if (activeTab === 'active') {
-          return !item.complete;
+          return !todo.complete;
         } else if (activeTab === 'done') {
-          return item.complete;
+          return todo.complete;
         } else {
-          return item;
+          return todo;
         }
       });
     }
 
     return result;
   };
+
+  console.log(filteredItems(), todos);
 
   return (
     <div className={styles.wrapper}>
@@ -77,35 +80,28 @@ function App() {
           Todo <span> List </span>
         </h1>
       </header>
-
-      <ToDoForm addTask={addTask} />
-      <ToDoSearch setQueryItems={setQueryItems} />
-      <ToDoTabs activeTab={activeTab} changeTab={setActiveTab} />
-
-      {toDoList.length === 0 ? (
-        <h2 className={styles.empty}> The Todo list is empty ... </h2>
-      ) : (
-        [
-          filterItems().map((item) => (
-            <ToDoItem
+      <TodoForm onAddTask={handleAddTask} />
+      <ToDoSearch onChangeTodos={setSearchQuery} />
+      <TodoTabs activeTab={activeTab} onChangeTab={setActiveTab} />
+      {todos.length === 0 ? (
+        <Empty/>
+      ) : filteredItems().map((item) => (
+            <TodoItem
               key={item.id}
               item={item}
-              removeTask={removeTask}
-              handleCheck={handleCheck}
-              handleEditeList={handleEditeList}
+              onRemoveTask={handleRemoveTask}
+              onCheck={handleCheck}
+              onEditList={handleEditTodo}
             />
-          )),
-        ]
-      )}
-      {toDoList.length ? (
+          ))
+      }
+      {todos.length ? (
         <footer className={styles.footer_wrapper}>
           <p className={styles.todo_counter}>
-            {' '}
-            You have <span> {toDoList.length} </span> to do{' '}
+            You have <span> {todos.length} </span> to do
           </p>
-
-          <button className={styles.delete_all_todo} onClick={deleteDoneTask}>
-            Сlean up done
+          <button className={styles.delete_all_todo} onClick={handleDeleteDoneTasks}>
+            Clean up done
           </button>
         </footer>
       ) : null}
