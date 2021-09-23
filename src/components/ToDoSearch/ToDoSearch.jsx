@@ -8,6 +8,7 @@ const ToDoFilterItem = ({ setQueryItems }) => {
       <input
         className={styles.todo_search_input}
         onChange={(e) => setQueryItems(e.target.value)}
+        placeholder="Search..."
       />
     </div>
   );

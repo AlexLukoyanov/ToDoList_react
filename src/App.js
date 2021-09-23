@@ -98,7 +98,16 @@ function App() {
         ]
       )}
       {toDoList.length ? (
-        <button onClick={deleteDoneTask}>Clear Done Task</button>
+        <footer className={styles.footer_wrapper}>
+          <p className={styles.todo_counter}>
+            {' '}
+            You have <span> {toDoList.length} </span> to do{' '}
+          </p>
+
+          <button className={styles.delete_all_todo} onClick={deleteDoneTask}>
+            Сlean up done
+          </button>
+        </footer>
       ) : null}
     </div>
   );

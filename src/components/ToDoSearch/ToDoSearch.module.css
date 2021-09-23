@@ -26,5 +26,5 @@
 }
 
 .todo_search_input::placeholder {
-  padding-left: 30px;
+  color: #f5f768ab;
 }

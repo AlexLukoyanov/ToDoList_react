@@ -19,3 +19,36 @@
   color: #f5f768ab;
   text-align: center;
 }
+
+.footer_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+
+.delete_all_todo {
+  font-size: 20px;
+  padding: 10px;
+  background: #edf050;
+  border: none;
+  cursor: pointer;
+}
+
+.delete_all_todo:hover {
+  background-color: #f5f768ab;
+}
+
+.delete_all_todo:focus {
+  background-color: #f5f768ab;
+}
+
+.todo_counter {
+  display: block;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.todo_counter span {
+  color: #edf050;
+}
