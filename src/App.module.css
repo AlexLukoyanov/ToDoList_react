@@ -14,3 +14,8 @@
 .title span {
   color: #edf050;
 }
+
+.empty {
+  color: #f5f768ab;
+  text-align: center;
+}

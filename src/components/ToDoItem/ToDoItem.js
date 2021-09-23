@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ToDoItem.css';
+import styles from './ToDoItem.module.css';
 
 const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
   const [onEdit, setOnEdit] = useState(false);
@@ -27,23 +27,30 @@ const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
   if (onEdit) {
     return (
       <div>
-        <div>
+        <div className={styles.todo_item_wrapper}>
+          <label htmlFor="editValue" />
           <input
+            className={styles.todo_item_edit}
             type="text"
             id="editValue"
             task="editValue"
             value={editValue}
             onChange={changeTask}
           />
-          <button onClick={() => handleSave(item.id)}>Save</button>
+          <button
+            className={'fas fa-save'}
+            onClick={() => handleSave(item.id)}
+            title="Save"
+          />
         </div>
       </div>
     );
   } else {
     return (
-      <div>
-        <div>
+      <div className={styles.todo_item_wrapper}>
+        <div className={styles.todo_item}>
           <input
+            className={styles.todo_item_check}
             type="checkbox"
             id={item.id}
             checked={item.complete}
@@ -51,13 +58,22 @@ const ToDoItem = ({ item, removeTask, handleCheck, handleEditeList }) => {
           />
           <label
             htmlFor={item.id}
-            className={item.complete ? 'lineThrough' : null}
+            className={item.complete ? styles.lineThrough : null}
           >
             {item.task}
           </label>
-          <button onClick={deleteTask}>X</button>
-          <button onClick={handleOnEdit}>Edit</button>
         </div>
+        <button
+          disabled={item.complete}
+          className={'fas fa-pencil-alt'}
+          onClick={handleOnEdit}
+          title="Edit"
+        />
+        <button
+          className={'fas fa-trash'}
+          onClick={deleteTask}
+          title="Delete"
+        />
       </div>
     );
   }

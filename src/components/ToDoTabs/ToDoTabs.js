@@ -3,16 +3,16 @@ import styles from './ToDoTabs.module.css';
 
 const ToDoTabs = ({ changeTab, activeTab }) => {
   return (
-    <ul className={styles.todo_tabs}>
-      <li
+    <div className={styles.todo_tabs}>
+      <button
         className={
           activeTab === 'all' ? styles.todo_tab_active : styles.todo_tabs_item
         }
         onClick={() => changeTab('all')}
       >
         All
-      </li>
-      <li
+      </button>
+      <button
         className={
           activeTab === 'active'
             ? styles.todo_tab_active
@@ -21,16 +21,16 @@ const ToDoTabs = ({ changeTab, activeTab }) => {
         onClick={() => changeTab('active')}
       >
         Active
-      </li>
-      <li
+      </button>
+      <button
         className={
           activeTab === 'done' ? styles.todo_tab_active : styles.todo_tabs_item
         }
         onClick={() => changeTab('done')}
       >
         Done
-      </li>
-    </ul>
+      </button>
+    </div>
   );
 };
 

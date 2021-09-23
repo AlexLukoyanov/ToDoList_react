@@ -1,0 +1,91 @@
+.todo_item_wrapper {
+  display: flex;
+  margin-bottom: 50px;
+  border-bottom: 2px solid #ffffff;
+}
+
+.todo_item {
+  width: 88%;
+}
+
+.todo_item label {
+  color: #ffffff;
+  font-size: 20px;
+  word-break: break-all;
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+.todo_item_check {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.todo_item_check + label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+.todo_item_check + label::before {
+  content: '';
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #ffffff;
+  margin-right: 8px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.todo_item_check:checked + label::before {
+  border: 1px solid #f5f769ab;
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' version='1.1' width='10' height='10' x='0' y='0' viewBox='0 0 417.81333 417' style='enable-background:new 0 0 512 512' xml:space='preserve' class=''%3E%3Cg%3E%3Cpath xmlns='http://www.w3.org/2000/svg' d='m159.988281 318.582031c-3.988281 4.011719-9.429687 6.25-15.082031 6.25s-11.09375-2.238281-15.082031-6.25l-120.449219-120.46875c-12.5-12.5-12.5-32.769531 0-45.246093l15.082031-15.085938c12.503907-12.5 32.75-12.5 45.25 0l75.199219 75.203125 203.199219-203.203125c12.503906-12.5 32.769531-12.5 45.25 0l15.082031 15.085938c12.5 12.5 12.5 32.765624 0 45.246093zm0 0' fill='%23f5f769ab' data-original='%23000000' style='' class=''/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.todo_item_check:focus + label::before {
+  border: 1px solid #edf050;
+}
+.todo_item_check:hover + label::before {
+  border: 1px solid #edf050;
+}
+
+.todo_item_check:checked + label {
+  color: #f5f769ab;
+}
+
+.todo_item_wrapper button {
+  font-size: 15px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding-bottom: 10px;
+}
+
+.todo_item_wrapper button:hover {
+  color: #edf050;
+}
+
+.todo_item_wrapper button:focus {
+  color: #edf050;
+}
+
+.todo_item_wrapper button:disabled {
+  color: #f5f769ab;
+}
+
+.todo_item_edit {
+  width: 94%;
+  color: #ffffff;
+  font-size: 20px;
+  word-break: break-all;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  border: none;
+  background: #353f5b;
+}

@@ -81,18 +81,25 @@ function App() {
       <ToDoForm addTask={addTask} />
       <ToDoSearch setQueryItems={setQueryItems} />
       <ToDoTabs activeTab={activeTab} changeTab={setActiveTab} />
-      {[
-        filterItems().map((item) => (
-          <ToDoItem
-            key={item.id}
-            item={item}
-            removeTask={removeTask}
-            handleCheck={handleCheck}
-            handleEditeList={handleEditeList}
-          />
-        )),
-      ]}
-      <button onClick={deleteDoneTask}>Clear Done Task</button>
+
+      {toDoList.length === 0 ? (
+        <h2 className={styles.empty}> The Todo list is empty ... </h2>
+      ) : (
+        [
+          filterItems().map((item) => (
+            <ToDoItem
+              key={item.id}
+              item={item}
+              removeTask={removeTask}
+              handleCheck={handleCheck}
+              handleEditeList={handleEditeList}
+            />
+          )),
+        ]
+      )}
+      {toDoList.length ? (
+        <button onClick={deleteDoneTask}>Clear Done Task</button>
+      ) : null}
     </div>
   );
 }
