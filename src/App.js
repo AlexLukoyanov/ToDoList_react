@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import styles from './App.module.css';
-import ToDoSearch from './components/TodoSearch';
-import TodoForm from './components/TodoForm';
-import TodoItem from './components/TodoItem';
-import TodoTabs from './components/TodoTabs';
-import { Empty } from "./components/Empty";
+import ToDoSearch from './components/ToDoSearch';
+import TodoForm from './components/ToDoForm';
+import TodoItem from './components/ToDoItem';
+import TodoTabs from './components/ToDoTabs';
+import { Empty } from './components/Empty';
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleCheck = (id) => () =>  {
+  const handleCheck = (id) => () => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, complete: !todo.complete } : todo
@@ -84,23 +84,27 @@ function App() {
       <ToDoSearch onChangeTodos={setSearchQuery} />
       <TodoTabs activeTab={activeTab} onChangeTab={setActiveTab} />
       {todos.length === 0 ? (
-        <Empty/>
-      ) : filteredItems().map((item) => (
-            <TodoItem
-              key={item.id}
-              item={item}
-              onRemoveTask={handleRemoveTask}
-              onCheck={handleCheck}
-              onEditList={handleEditTodo}
-            />
-          ))
-      }
+        <Empty />
+      ) : (
+        filteredItems().map((item) => (
+          <TodoItem
+            key={item.id}
+            item={item}
+            onRemoveTask={handleRemoveTask}
+            onCheck={handleCheck}
+            onEditList={handleEditTodo}
+          />
+        ))
+      )}
       {todos.length ? (
         <footer className={styles.footer_wrapper}>
           <p className={styles.todo_counter}>
             You have <span> {todos.length} </span> to do
           </p>
-          <button className={styles.delete_all_todo} onClick={handleDeleteDoneTasks}>
+          <button
+            className={styles.delete_all_todo}
+            onClick={handleDeleteDoneTasks}
+          >
             Clean up done
           </button>
         </footer>
