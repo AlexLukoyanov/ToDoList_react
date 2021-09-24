@@ -15,11 +15,6 @@
   color: #edf050;
 }
 
-.empty {
-  color: #f5f768ab;
-  text-align: center;
-}
-
 .footer_wrapper {
   display: flex;
   justify-content: space-between;
