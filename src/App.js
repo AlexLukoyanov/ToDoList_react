@@ -71,8 +71,6 @@ function App() {
     return result;
   };
 
-  console.log(filteredItems(), todos);
-
   return (
     <div className={styles.wrapper}>
       <header>
