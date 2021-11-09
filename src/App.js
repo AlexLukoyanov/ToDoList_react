@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
 import ToDoSearch from './components/ToDoSearch';
 import TodoForm from './components/ToDoForm';
@@ -10,6 +10,15 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const todoStore = JSON.parse(localStorage.getItem('todoStore'));
+    if (todoStore) setTodos(todoStore);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('todoStore', JSON.stringify(todos));
+  }, [todos]);
 
   const handleCheck = (id) => () => {
     setTodos(
