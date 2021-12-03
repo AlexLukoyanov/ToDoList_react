@@ -9,7 +9,7 @@ import { Todo, FilterTab } from './types/stateType';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [activeTab, setActiveTab] = useState<string>(FilterTab.all);
+  const [activeTab, setActiveTab] = useState<FilterTab>(FilterTab.all);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {

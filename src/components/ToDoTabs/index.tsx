@@ -3,12 +3,12 @@ import { FilterTab } from '../../types/stateType';
 import styles from './index.module.css';
 
 type ToDoTabsProps = {
-  onChangeTab: (type: string) => void;
+  onChangeTab: (type: FilterTab) => void;
   activeTab: string;
 };
 
 const TodoTabs: FC<ToDoTabsProps> = ({ onChangeTab, activeTab }) => {
-  const handleChangeTab = (type: string) => () => onChangeTab(type);
+  const handleChangeTab = (type: FilterTab) => () => onChangeTab(type);
 
   return (
     <div className={styles.todo_tabs}>
