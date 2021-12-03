@@ -1,8 +1,13 @@
 import React from 'react';
 import styles from './index.module.css';
 
-const TodoTabs = ({ onChangeTab, activeTab }) => {
-  const handleChangeTab = (type) => () => onChangeTab(type);
+interface ITodoTabs {
+  onChangeTab: (type: string) => void;
+  activeTab: string;
+}
+
+const TodoTabs: React.FC<ITodoTabs> = ({ onChangeTab, activeTab }) => {
+  const handleChangeTab = (type: string) => () => onChangeTab(type);
 
   return (
     <div className={styles.todo_tabs}>
