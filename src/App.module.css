@@ -1,5 +1,29 @@
-.wrapper {
-  margin: 100px auto;
+@media (min-width: 320px) {
+  .wrapper {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 660px) {
+  .wrapper {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .wrapper {
+    margin: 100px auto;
+    max-width: 400px;
+    padding: 10px;
+  }
+}
+
+.wrapper_top {
+  margin: 0 auto;
   max-width: 400px;
   padding: 10px;
 }
@@ -20,7 +44,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 50px;
+  margin-top: 70px;
 }
 
 .delete_all_todo {
@@ -43,9 +67,9 @@
 .todo_counter {
   display: block;
   font-size: 20px;
-  color: #ffffff;
+  color: #edf050;
 }
 
 .todo_counter span {
-  color: #edf050;
+  color: #ffffff;
 }

@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import styles from './index.module.css';
 
-const TodoForm = ({ onAddTask }) => {
+type ToDoFormProps = {
+  onAddTask: (userInput: string) => void;
+};
+
+const TodoForm: FC<ToDoFormProps> = ({ onAddTask }) => {
   const [userInput, setUserInput] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     onAddTask(userInput);
     setUserInput('');
   };
 
-  const handleChange = (e) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setUserInput(e.currentTarget.value);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
-      handleSubmit(e);
+      onAddTask(userInput);
+      setUserInput('');
     }
   };
 

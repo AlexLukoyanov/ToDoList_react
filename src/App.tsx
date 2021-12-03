@@ -5,14 +5,15 @@ import TodoForm from './components/ToDoForm';
 import TodoItem from './components/ToDoItem';
 import TodoTabs from './components/ToDoTabs';
 import { Empty } from './components/Empty';
+import { Todo, FilterTab } from './types/stateType';
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [activeTab, setActiveTab] = useState('all');
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [activeTab, setActiveTab] = useState<FilterTab>(FilterTab.all);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const todoStore = JSON.parse(localStorage.getItem('todoStore'));
+    const todoStore = JSON.parse(localStorage.getItem('todoStore') || '{}');
     if (todoStore) setTodos(todoStore);
   }, []);
 
@@ -20,7 +21,7 @@ function App() {
     localStorage.setItem('todoStore', JSON.stringify(todos));
   }, [todos]);
 
-  const handleCheck = (id) => () => {
+  const handleCheck = (id: string): void => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, complete: !todo.complete } : todo
@@ -28,10 +29,10 @@ function App() {
     );
   };
 
-  const handleAddTask = (userInput) => {
+  const handleAddTask = (userInput: string): void => {
     if (userInput) {
       const newTodo = {
-        id: Math.random().toString(30).substr(2, 9),
+        id: Date.now().toString(),
         task: userInput,
         complete: false,
       };
@@ -39,7 +40,7 @@ function App() {
     }
   };
 
-  const handleRemoveTask = (id) => () => {
+  const handleRemoveTask = (id: string): void => {
     setTodos(todos.filter((item) => item.id !== id));
   };
 
@@ -47,7 +48,7 @@ function App() {
     setTodos(todos.filter((todo) => !todo.complete));
   };
 
-  const handleEditTodo = (editValue, id) => {
+  const handleEditTodo = (editValue: string, id: string): void => {
     const newTodos = [...todos];
     newTodos.forEach((item) => {
       if (item.id === id) {
@@ -67,9 +68,9 @@ function App() {
     }
     if (activeTab) {
       result = result.filter((todo) => {
-        if (activeTab === 'active') {
+        if (activeTab === FilterTab.active) {
           return !todo.complete;
-        } else if (activeTab === 'done') {
+        } else if (activeTab === FilterTab.done) {
           return todo.complete;
         } else {
           return todo;
@@ -81,7 +82,7 @@ function App() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={todos.length ? styles.wrapper_top : styles.wrapper}>
       <header>
         <h1 className={styles.title}>
           Todo <span> List </span>
@@ -98,7 +99,7 @@ function App() {
             key={item.id}
             item={item}
             onRemoveTask={handleRemoveTask}
-            onCheck={handleCheck}
+            handleCheck={handleCheck}
             onEditList={handleEditTodo}
           />
         ))
