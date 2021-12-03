@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import styles from './index.module.css';
 
-interface ITodoForm {
+type ToDoFormProps = {
   onAddTask: (userInput: string) => void;
-}
+};
 
-const TodoForm: React.FC<ITodoForm> = ({ onAddTask }) => {
+const TodoForm: FC<ToDoFormProps> = ({ onAddTask }) => {
   const [userInput, setUserInput] = useState('');
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {

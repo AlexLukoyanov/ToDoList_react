@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import styles from './index.module.css';
-import { ITodo } from '../../types/ITodo';
+import { Todo } from '../../types/stateType';
 
-interface ITodoItem {
-  item: ITodo;
+type ToDoItemProps = {
+  item: Todo;
   onRemoveTask: (id: string) => void;
   handleCheck: (id: string) => void;
   onEditList: (editValue: string, id: string) => void;
-}
+};
 
-const TodoItem: React.FC<ITodoItem> = ({
+const TodoItem: FC<ToDoItemProps> = ({
   item,
   onRemoveTask,
   handleCheck,

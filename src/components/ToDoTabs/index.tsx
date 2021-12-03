@@ -1,39 +1,44 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { FilterTab } from '../../types/stateType';
 import styles from './index.module.css';
 
-interface ITodoTabs {
+type ToDoTabsProps = {
   onChangeTab: (type: string) => void;
   activeTab: string;
-}
+};
 
-const TodoTabs: React.FC<ITodoTabs> = ({ onChangeTab, activeTab }) => {
+const TodoTabs: FC<ToDoTabsProps> = ({ onChangeTab, activeTab }) => {
   const handleChangeTab = (type: string) => () => onChangeTab(type);
 
   return (
     <div className={styles.todo_tabs}>
       <button
         className={
-          activeTab === 'all' ? styles.todo_tab_active : styles.todo_tabs_item
+          activeTab === FilterTab.all
+            ? styles.todo_tab_active
+            : styles.todo_tabs_item
         }
-        onClick={handleChangeTab('all')}
+        onClick={handleChangeTab(FilterTab.all)}
       >
         All
       </button>
       <button
         className={
-          activeTab === 'active'
+          activeTab === FilterTab.active
             ? styles.todo_tab_active
             : styles.todo_tabs_item
         }
-        onClick={handleChangeTab('active')}
+        onClick={handleChangeTab(FilterTab.active)}
       >
         Active
       </button>
       <button
         className={
-          activeTab === 'done' ? styles.todo_tab_active : styles.todo_tabs_item
+          activeTab === FilterTab.done
+            ? styles.todo_tab_active
+            : styles.todo_tabs_item
         }
-        onClick={handleChangeTab('done')}
+        onClick={handleChangeTab(FilterTab.done)}
       >
         Done
       </button>

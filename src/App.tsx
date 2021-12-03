@@ -5,11 +5,11 @@ import TodoForm from './components/ToDoForm';
 import TodoItem from './components/ToDoItem';
 import TodoTabs from './components/ToDoTabs';
 import { Empty } from './components/Empty';
-import { ITodo } from './types/ITodo';
+import { Todo, FilterTab } from './types/stateType';
 
 function App() {
-  const [todos, setTodos] = useState<ITodo[]>([]);
-  const [activeTab, setActiveTab] = useState('all');
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [activeTab, setActiveTab] = useState<string>(FilterTab.all);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -68,9 +68,9 @@ function App() {
     }
     if (activeTab) {
       result = result.filter((todo) => {
-        if (activeTab === 'active') {
+        if (activeTab === FilterTab.active) {
           return !todo.complete;
-        } else if (activeTab === 'done') {
+        } else if (activeTab === FilterTab.done) {
           return todo.complete;
         } else {
           return todo;

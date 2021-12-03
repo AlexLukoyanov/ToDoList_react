@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './index.module.css';
 
-interface ITodoFilterItem {
+type ToDoSearchProps = {
   onChangeTodos: (e: string) => void;
-}
+};
 
-const TodoFilterItem: React.FC<ITodoFilterItem> = ({ onChangeTodos }) => {
+const TodoFilterItem: FC<ToDoSearchProps> = ({ onChangeTodos }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) =>
     onChangeTodos(e.target.value);
 
