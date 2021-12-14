@@ -1,17 +1,19 @@
-import React, { useState, FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useAppDispatch } from '../../hooks/redux';
+import { addTodo } from '../../store/todoSlice';
 import styles from './index.module.css';
 
-type ToDoFormProps = {
-  onAddTask: (userInput: string) => void;
-};
-
-const TodoForm: FC<ToDoFormProps> = ({ onAddTask }) => {
+const TodoForm: FC = () => {
   const [userInput, setUserInput] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    onAddTask(userInput);
-    setUserInput('');
+    if (userInput) {
+      dispatch(addTodo(userInput));
+      setUserInput('');
+    }
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -20,7 +22,7 @@ const TodoForm: FC<ToDoFormProps> = ({ onAddTask }) => {
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
-      onAddTask(userInput);
+      dispatch(addTodo(userInput));
       setUserInput('');
     }
   };
