@@ -1,0 +1,32 @@
+.todo_tabs_item {
+  width: 25%;
+  color: #ffffff;
+  font-size: 20px;
+  background: none;
+  border: none;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 3px solid #ffff;
+  cursor: pointer;
+}
+
+.todo_tabs_item:hover {
+  color: #edf050;
+}
+
+.todo_tabs_item:focus {
+  color: #edf050;
+}
+
+.todo_tab_active {
+  font-size: 20px;
+  width: 25%;
+  color: #ffffff;
+  border: none;
+  background: none;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 3px solid #edf050;
+  padding-bottom: 5px;
+  cursor: pointer;
+}

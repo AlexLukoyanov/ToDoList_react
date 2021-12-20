@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './App.module.css';
 import ToDoSearch from './components/ToDoSearch';
 import TodoForm from './components/ToDoForm';
@@ -10,23 +9,24 @@ import { useAppSelector } from './hooks/redux';
 import { Footer } from './components/Footer';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<FilterTab>(FilterTab.all);
-  const [searchQuery, setSearchQuery] = useState('');
   const todos = useAppSelector((state) => state.todos);
+  const todoSearch = useAppSelector((state) => state.todoSearch);
+  const todoActiveTab = useAppSelector((state) => state.todoFilter);
 
   const filteredTodos = () => {
     let result = [...todos];
 
-    if (searchQuery.length) {
+    if (todoSearch.length) {
       result = result.filter((todo) =>
-        todo.task.toLowerCase().includes(searchQuery.toLowerCase())
+        todo.task.toLowerCase().includes(todoSearch.toLowerCase())
       );
     }
-    if (activeTab) {
+
+    if (todoActiveTab) {
       result = result.filter((todo) => {
-        if (activeTab === FilterTab.active) {
+        if (todoActiveTab === FilterTab.active) {
           return !todo.complete;
-        } else if (activeTab === FilterTab.done) {
+        } else if (todoActiveTab === FilterTab.done) {
           return todo.complete;
         } else {
           return todo;
@@ -46,8 +46,8 @@ function App() {
       </header>
 
       <TodoForm />
-      <ToDoSearch onChangeTodos={setSearchQuery} />
-      <TodoTabs activeTab={activeTab} onChangeTab={setActiveTab} />
+      <ToDoSearch />
+      <TodoTabs />
 
       {todos.length ? (
         filteredTodos().map((todo) => <TodoItem key={todo.id} todo={todo} />)
