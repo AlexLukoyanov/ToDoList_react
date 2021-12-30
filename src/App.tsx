@@ -38,7 +38,7 @@ function App() {
   };
 
   return (
-    <div className={todos ? styles.wrapper_top : styles.wrapper}>
+    <div className={todos.length ? styles.wrapper_top : styles.wrapper}>
       <header>
         <h1 className={styles.title}>
           Todo <span> List </span>
