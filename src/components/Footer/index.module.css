@@ -1,0 +1,33 @@
+.footer_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 70px;
+}
+
+.delete_all_todo {
+  font-size: 20px;
+  padding: 10px;
+  background: #edf050;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete_all_todo:hover {
+  background-color: #f5f768ab;
+}
+
+.delete_all_todo:focus {
+  background-color: #f5f768ab;
+}
+
+.todo_counter {
+  display: block;
+  font-size: 20px;
+  color: #edf050;
+}
+
+.todo_counter span {
+  color: #ffffff;
+}

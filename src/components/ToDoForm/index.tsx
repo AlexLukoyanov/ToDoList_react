@@ -1,27 +1,29 @@
-import React, { useState, FC } from 'react';
+import { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setTodoDescription } from '../../store/todoDescriptionSlice';
+import { addTodo } from '../../store/todoSlice';
 import styles from './index.module.css';
 
-type ToDoFormProps = {
-  onAddTask: (userInput: string) => void;
-};
-
-const TodoForm: FC<ToDoFormProps> = ({ onAddTask }) => {
-  const [userInput, setUserInput] = useState('');
+const TodoForm: FC = () => {
+  const todoInput = useAppSelector((state) => state.todoDescription);
+  const dispatch = useAppDispatch();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    onAddTask(userInput);
-    setUserInput('');
+    if (todoInput) {
+      dispatch(addTodo(todoInput));
+      dispatch(setTodoDescription(''));
+    }
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setUserInput(e.currentTarget.value);
+    dispatch(setTodoDescription(e.target.value));
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter') {
-      onAddTask(userInput);
-      setUserInput('');
+      dispatch(addTodo(todoInput));
+      dispatch(setTodoDescription(''));
     }
   };
 
@@ -30,7 +32,7 @@ const TodoForm: FC<ToDoFormProps> = ({ onAddTask }) => {
       <input
         className={styles.todo_form_input}
         type="text"
-        value={userInput}
+        value={todoInput}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder="Add new todo..."

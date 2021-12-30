@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setTodoSearch } from '../../store/todoSearchSlice';
 import styles from './index.module.css';
 
-type ToDoSearchProps = {
-  onChangeTodos: (e: string) => void;
-};
+const TodoFilterItem: FC = () => {
+  const todoSearch = useAppSelector((state) => state.todoSearch);
+  const dispatch = useAppDispatch();
 
-const TodoFilterItem: FC<ToDoSearchProps> = ({ onChangeTodos }) => {
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) =>
-    onChangeTodos(e.target.value);
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    dispatch(setTodoSearch(e.target.value));
+  };
 
   return (
     <div className={styles.todo_search}>
@@ -16,6 +18,7 @@ const TodoFilterItem: FC<ToDoSearchProps> = ({ onChangeTodos }) => {
         className={styles.todo_search_input}
         onChange={handleChange}
         placeholder="Search..."
+        value={todoSearch}
       />
     </div>
   );

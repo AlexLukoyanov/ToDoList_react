@@ -1,22 +1,22 @@
 import React, { useState, FC } from 'react';
 import styles from './index.module.css';
 import { Todo } from '../../types/stateType';
+import { useAppDispatch } from '../../hooks/redux';
+import { editTodo, removeTodo, toggleComplete } from '../../store/todoSlice';
 
 type ToDoItemProps = {
-  item: Todo;
-  onRemoveTask: (id: string) => void;
-  handleCheck: (id: string) => void;
-  onEditList: (editValue: string, id: string) => void;
+  todo: Todo;
 };
 
-const TodoItem: FC<ToDoItemProps> = ({
-  item,
-  onRemoveTask,
-  handleCheck,
-  onEditList,
-}) => {
+const TodoItem: FC<ToDoItemProps> = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(item.task);
+  const [editValue, setEditValue] = useState(todo.task);
+
+  const dispatch = useAppDispatch();
+
+  const onRemoveTodo = (id: string) => () => dispatch(removeTodo(id));
+
+  const handleCheck = (id: string) => () => dispatch(toggleComplete(id));
 
   const handleChangeEditMode = () => {
     setIsEditing(true);
@@ -25,9 +25,9 @@ const TodoItem: FC<ToDoItemProps> = ({
   const handleSave = (id: string) => () => {
     setIsEditing(false);
     if (editValue) {
-      onEditList(editValue, id);
+      dispatch(editTodo({ editValue, id }));
     } else {
-      setEditValue(item.task);
+      setEditValue(todo.task);
     }
   };
 
@@ -49,7 +49,7 @@ const TodoItem: FC<ToDoItemProps> = ({
           />
           <button
             className={'fas fa-save'}
-            onClick={handleSave(item.id)}
+            onClick={handleSave(todo.id)}
             title="Save"
           />
         </div>
@@ -62,26 +62,26 @@ const TodoItem: FC<ToDoItemProps> = ({
         <input
           className={styles.todo_item_check}
           type="checkbox"
-          id={item.id}
-          checked={item.complete}
-          onChange={() => handleCheck(item.id)}
+          id={todo.id}
+          checked={todo.complete}
+          onChange={handleCheck(todo.id)}
         />
         <label
-          htmlFor={item.id}
-          className={item.complete ? styles.lineThrough : undefined}
+          htmlFor={todo.id}
+          className={todo.complete ? styles.lineThrough : undefined}
         >
-          {item.task}
+          {todo.task}
         </label>
       </div>
       <button
-        disabled={item.complete}
+        disabled={todo.complete}
         className={'fas fa-pencil-alt'}
         onClick={handleChangeEditMode}
         title="Edit"
       />
       <button
         className={'fas fa-trash'}
-        onClick={() => onRemoveTask(item.id)}
+        onClick={onRemoveTodo(todo.id)}
         title="Delete"
       />
     </div>

@@ -5,7 +5,7 @@ export type Todo = {
 };
 
 export enum FilterTab {
-  all = 'all',
-  active = 'active',
-  done = 'done',
+  all = 'All',
+  active = 'Active',
+  done = 'Done',
 }
